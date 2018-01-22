@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "server": "node ./bin/www",
+    "client": "webpack -w",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "~1.17.1",
+    "concurrently": "^3.5.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "firebase": "^4.9.0",
+    "hjs": "~0.0.6",
+    "morgan": "~1.8.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "serve-favicon": "~2.4.2",
+    "webpack": "^3.10.0"
+  }
+}
