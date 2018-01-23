@@ -4,6 +4,9 @@
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/assets/css/main.css" />
     <meta charset="UTF-8">
+    <link rel="icon"
+      type="images/png"
+      href="https://firebasestorage.googleapis.com/v0/b/mad-youth-choir.appspot.com/o/img%2FWebLogo.png?alt=media&token=32f2be95-35dc-430b-a946-8496743230b3">
   <meta name="description" content="MAD Youth Registration site.">
   <meta name="keywords" content="MAD Youth, Mad, Make a difference, youth choir mad">
   <meta name="author" content="Thando Ncube">
