@@ -8,7 +8,17 @@
   <meta name="keywords" content="MAD Youth, Mad, Make a difference, youth choir mad">
   <meta name="author" content="Thando Ncube">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous"/>
+  <meta property="og:title" content="MAD Youth Choir Registration" />
+<meta property="og:type" content="document" />
+<meta property="og:url" content="https://mad4christ.herokuapp.com" />
+<meta property="og:image" content="https://mad4christ.herokuapp.com" />
+<!-- For Facebook -->
+<meta property="og:url"                content="https://mad4christ.herokuapp.com" />
+<meta property="og:type"               content="article" />
+<meta property="og:title"              content="MAD Youth Choir Page" />
+<meta property="og:description"        content="“Practice isn’t the thing you do once you’re good. It’s the thing you do that makes you good.” " />
+<meta property="og:image"              content="https://firebasestorage.googleapis.com/v0/b/mad-youth-choir.appspot.com/o/img%2FWebLogo.png?alt=media&token=32f2be95-35dc-430b-a946-8496743230b3" />
+
 
 
   <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>

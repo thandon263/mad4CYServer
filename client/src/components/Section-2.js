@@ -62,8 +62,12 @@ class SectionTwo extends Component {
           <footer className="major">
             <ul className="actions">
               <li>
-                <a href="#" className="button">
-                  Magna sed feugiat
+                <a
+                  target="_blank"
+                  href="https://drive.google.com/file/d/11kU61h-inbMqz7Ni-O_4nowRrCQQtw6z/view?usp=sharing"
+                  className="button"
+                >
+                  Download The Contract
                 </a>
               </li>
             </ul>

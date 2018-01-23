@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Header, SectionOne, SectionTwo, Footer } from "./components/index";
 import FormComponent from "./shared/Form";
+import firebase from "firebase";
 import config from "../../config/keys";
 
 class App extends React.Component {
