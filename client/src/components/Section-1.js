@@ -11,10 +11,10 @@ class SectionOne extends Component {
         >
           <div className="content">
             <div className="container">
-              <h1 style={{ textAlign: "center" }}>MAKE A DIFFERENCE</h1>
+              <h2 style={{ textAlign: "center" }}>MAKE A DIFFERENCE</h2>
               <hr style={{ color: "#e44c65" }} />
               <div className="row" style={{ margin: "0 auto" }}>
-                <div className="col-md-4 12u$(medium)">
+                <div className="4u 12u$(medium)">
                   <header>
                     <h2>Thank You For Your Interest</h2>
                     <p>
@@ -22,7 +22,7 @@ class SectionOne extends Component {
                     </p>
                   </header>
                 </div>
-                <div className="col-md-4 12u$(medium)">
+                <div className="4u 12u$(medium)">
                   <div>
                     <h3>
                       <u>The MAD Youth choir’s vision for the future is:</u>
@@ -33,7 +33,7 @@ class SectionOne extends Component {
                     around the world.
                   </div>
                 </div>
-                <div className="col-md-4 12u$(medium)">
+                <div className="4u$ 12u$(medium)">
                   <div>
                     <h3>
                       <u>

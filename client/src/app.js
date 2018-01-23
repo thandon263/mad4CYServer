@@ -1,11 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Header, SectionOne, SectionTwo, Footer } from "./components/index";
 import FormComponent from "./shared/Form";
 import firebase from "firebase";
 import config from "../../config/keys";
+import PageLoader from "./shared/spinner";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false
+    };
+  }
+
   componentWillMount() {
     firebase.initializeApp({
       apiKey: config.apiKey,
@@ -20,13 +30,24 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
-        <SectionOne />
-        <SectionTwo />
-        <FormComponent />
-        <Footer />
+        {this.state.loading ? (
+          <PageLoader />
+        ) : (
+          <div>
+            <Header />
+            <SectionOne />
+            <SectionTwo />
+            <FormComponent />
+            <Footer />
+          </div>
+        )}
       </div>
     );
   }
 }
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <MuiThemeProvider>
+    <App />
+  </MuiThemeProvider>,
+  document.getElementById("root")
+);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
+import Snackbar from "material-ui/Snackbar";
 
 class Form extends Component {
   constructor() {
@@ -7,169 +8,184 @@ class Form extends Component {
     this.state = {
       required: true,
       disabled: true,
-      validation: {
-        first_name: "",
-        last_name: "",
-        phone: ""
-      }
+      open: false,
+      error: {},
+      message: "",
+      photoUrl: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
   }
   componentWillMount() {
-    var database = firebase.database().ref("posts");
-    var storageRef = firebase.storage().ref("blog_images/");
+    var database = firebase.database().ref("people");
+    var storageRef = firebase.storage().ref("profile_images");
   }
 
   handleImageChange(event) {
+    // listen for file selection
     var file = event.target.files[0];
-    // Create a storage ref
-    var storageRef = firebase.storage().ref("blog_images/" + file.name);
+    console.log("Value of the Uploaded.", file);
 
-    // Store Url download
-    var downloadURLRefs = "";
-    // save to state
-    // this.setState({
-    //   image: downloadURLRefs
-    // });
+    // Create a storage reference
+    var storageRef = firebase.storage().ref("profile_images/" + file.name);
 
-    // Upload file
-    var task = storageRef.put(file);
+    // Upload a file
+    var uploadTask = storageRef.put(file);
+
+    var downloadURL = "";
 
     // Update progress bar
-    task.on(
+    uploadTask.on(
       "state_changed",
+
       function progress(snapshot) {
         var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+
         uploader.value = percentage;
       },
 
       function error(err) {
-        console.error("Error uploading image.");
+        console.error("Loading unsuccessful!");
+        alert("Loading not Successful, Try again.");
       },
 
       function complete() {
-        console.log("Image upload successful!");
-        // counter
-        var value = 0;
-        var url = task.snapshot.downloadURL;
-
-        firebase
-          .database()
-          .ref("images/" + `${(value += 1)}`)
-          .set({
-            imageUrl: url
-          });
+        downloadURL = uploadTask.snapshot.downloadURL;
       }
     );
+
+    setTimeout(() => {
+      this.setState({
+        photoUrl: downloadURL
+      });
+    }, 5000);
   }
 
-  validate(e) {
-    var first_name = document.getElementById("first_name").value;
-    var last_name = document.getElementById("last_name").value;
-    var phone = document.getElementById("phone").value;
-    var file_uploader = document.getElementById("file_uploader").value;
-    var email = document.getElementById("email").value;
-    var time_spent = document.getElementById("time_spent").value;
-    var city = document.getElementById("city").value;
-    var voice = document.getElementById("voice").value;
-    var gender = document.getElementById("gender").value;
-    var motivation = document.getElementById("motivation").value;
-    var structure = document.getElementById("structure").value;
-
-    if (first_name.length === 0) {
-      this.setState({
-        validation: {
-          first_name: "Please enter First Name"
-        }
-      });
-
-      e.preventDefault();
-      return;
-    }
-
-    if (last_name.length === 0) {
-      this.setState({
-        validation: {
-          last_name: "Please enter Last Name"
-        }
-      });
-      e.preventDefault();
-      return;
-    }
-
-    if (phone.length === 0) {
-      this.setState({
-        validation: {
-          phone_number: "Please enter Phone Number"
-        }
-      });
-      e.preventDefault();
-      return;
-    }
-
-    if (email.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (time_spent.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (city.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (voice.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (gender.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (motivation.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (structure.length === 0) {
-      alert("You must enter a username.");
-      e.preventDefault();
-      return;
-    }
-
-    if (
-      structure &&
-      motivation &&
-      gender &&
-      voice &&
-      city &&
-      time_spent &&
-      email &&
-      phone &&
-      last_name &&
-      first_name === 0
-    ) {
-      this.setState({
-        disabled: true
-      });
-    }
+  validateEmail(value) {
+    // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(value);
   }
 
-  submitForm() {
-    if (this.state.disabled) {
-      console.log("Form Submitted!");
+  handleRequestClose() {
+    this.setState({
+      open: false
+    });
+  }
+
+  handleValidation() {
+    let errors = {};
+    let formIsValid = true;
+
+    // First Name
+    if (!this.fname.value) {
+      formIsValid = false;
+      errors.this.fname.value = "Cannot be empty";
+    }
+
+    if (typeof this.fname.value !== "undefined") {
+      if (!this.fname.value.match(/^[a-zA-Z]+$/)) {
+        formIsValid = false;
+        errors.this.fname.value = "only letters";
+      }
+    }
+
+    // email
+    if (!this.email.value) {
+      formIsValid = false;
+      errors.this.email.value = "Cannot be empty";
+    }
+
+    if (typeof this.email.value !== "undefined") {
+      let lastAtPos = this.email.value.lastIndexOf("@");
+      let lastDotPos = this.email.value.lastIndexOf(".");
+
+      if (
+        !(
+          lastAtPos < lastDotPos &&
+          lastAtPos > 0 &&
+          this.email.value.value.indexOf("@@")
+        )
+      ) {
+        formIsValid = false;
+        errors.this.email.value = "Email is not valid";
+      }
+    }
+
+    // Hours Spent
+    if (!this.time_spent.value) {
+      formIsValid = false;
+      errors.this.time_spent.value = "Cannot be empty";
+    }
+
+    if (typeof this.time_spent.value !== "undefined") {
+      if (!this.time_spent.value.match(/^[a-zA-Z0-9]+$/)) {
+        formIsValid = false;
+        errors.this.time_spent.value = "only letters";
+      }
+    }
+
+    this.setState({
+      errors: errors
+    });
+
+    return formIsValid;
+  }
+
+  submitForm(event) {
+    event.preventDefault();
+
+    // Get values saved
+    var object = {
+      personal_information: {
+        first_name: this.fname.value,
+        last_name: this.lname.value,
+        photoUrl: this.state.photoUrl,
+        email: this.email.value,
+        gender: this.gender.value,
+        phone: parseInt(this.phone.value, 10)
+      },
+      location: {
+        city: this.city.value
+      },
+      specialty: {
+        voice: this.voice.value
+      },
+      about_choir: {
+        time_spent: this.time_spent.value,
+        motivation: this.motivation.value,
+        structure: this.structure.value
+      }
+    };
+
+    if (object) {
+      console.log("Values: ", object);
+      // Push the Object to firebase
+
+      // Initialize counter
+      var counter = 0;
+
+      // Create a database Reference
+      firebase
+        .database()
+        .ref(
+          "profile/" +
+            `s2January2018N_${
+              object.personal_information.first_name
+            }${(counter += 1)}`
+        )
+        .set(object);
+
+      // on Submit Success only
+      this.setState({
+        open: true,
+        message: "Form Successfully Submitted!"
+      });
+    } else {
+      this.setState({
+        open: true,
+        message: "Please Complete the Form before Submitting!"
+      });
+      alert("Form was not Subimitted, Complete all fields");
     }
   }
 
@@ -184,9 +200,9 @@ class Form extends Component {
             id="contact_form"
           >
             <fieldset>
-              <h1>
-                <u>Registration Form</u>
-              </h1>
+              <h2>
+                <i>Registration Form</i>
+              </h2>
               <div className="form-group">
                 <label className="col-md-4 control-label">First Name</label>
                 <div className="col-md-4 inputGroupContainer">
@@ -201,10 +217,9 @@ class Form extends Component {
                       placeholder="First Name"
                       className="form-control"
                       type="text"
+                      ref={input => (this.fname = input)}
                     />
-                    <span style={{ color: "#e44c65" }}>
-                      {this.state.validation.first_name}
-                    </span>
+                    <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
                 </div>
               </div>{" "}
@@ -223,10 +238,8 @@ class Form extends Component {
                       placeholder="Last Name"
                       className="form-control"
                       type="text"
+                      ref={input => (this.lname = input)}
                     />
-                    <span style={{ color: "#e44c65" }}>
-                      {this.state.validation.last_name}
-                    </span>
                   </div>
                 </div>
               </div>
@@ -237,7 +250,12 @@ class Form extends Component {
                   <label className="col-md-4 control-label">
                     Upload Profile Picture
                   </label>
-                  <progress value="0" max="100" id="uploader">
+                  <progress
+                    style={styles.uploader}
+                    value="0"
+                    max="100"
+                    id="uploader"
+                  >
                     0%
                   </progress>
                   <div className="col-md-4 inputGroupContainer">
@@ -274,7 +292,9 @@ class Form extends Component {
                       placeholder="E-Mail Address"
                       className="form-control"
                       type="text"
+                      ref={input => (this.email = input)}
                     />
+                    <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
                 </div>
               </div>
@@ -293,17 +313,16 @@ class Form extends Component {
                       placeholder="(845)555-1212"
                       className="form-control"
                       type="text"
+                      ref={input => (this.phone = input)}
                     />
-                    <span style={{ color: "#e44c65" }}>
-                      {this.state.validation.phone}
-                    </span>
                   </div>
                 </div>
               </div>
               <br />
               <div className="form-group">
                 <label className="col-md-4 control-label">
-                  Hours Spent listening to Acapella?
+                  Number of hours you spend listening to Acapella music a
+                  day/week?
                 </label>
                 <div className="col-md-4 inputGroupContainer">
                   <div className="input-group">
@@ -314,10 +333,12 @@ class Form extends Component {
                       id="time_spent"
                       required={this.state.required}
                       name="time_spent"
-                      placeholder="Hours e.g '1 hour'"
+                      placeholder="Hours e.g '1 hour a week'"
                       className="form-control"
                       type="text"
+                      ref={input => (this.time_spent = input)}
                     />
+                    <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
                 </div>
               </div>
@@ -335,7 +356,9 @@ class Form extends Component {
                       name="city"
                       placeholder="city"
                       className="form-control"
+                      defaultValue={"Toronto"}
                       type="text"
+                      ref={input => (this.city = input)}
                     />
                   </div>
                 </div>
@@ -353,6 +376,7 @@ class Form extends Component {
                       required={this.state.required}
                       name="voice"
                       className="form-control selectpicker"
+                      ref={input => (this.voice = input)}
                     >
                       <option value=" ">Please select your Voice</option>
                       <option>Soprano</option>
@@ -378,6 +402,7 @@ class Form extends Component {
                       placeholder="Gender"
                       className="form-control"
                       type="text"
+                      ref={input => (this.gender = input)}
                     />
                   </div>
                 </div>
@@ -399,6 +424,7 @@ class Form extends Component {
                       placeholder="e.g 'harmony in music'"
                       className="form-control"
                       type="text"
+                      ref={input => (this.motivation = input)}
                     />
                   </div>
                 </div>
@@ -422,6 +448,7 @@ class Form extends Component {
                       placeholder="e.g 'Yes' or 'No'"
                       className="form-control"
                       type="text"
+                      ref={input => (this.structure = input)}
                     />
                   </div>
                 </div>
@@ -448,9 +475,28 @@ class Form extends Component {
             </fieldset>
           </form>
         </div>
+        <Snackbar
+          open={this.state.open}
+          style={styles.snackbar}
+          action="Close"
+          message={this.state.message}
+          autoHideDuration={4000}
+          onActionClick={this.handleRequestClose.bind(this)}
+          onRequestClose={this.handleRequestClose.bind(this)}
+        />
       </div>
     );
   }
 }
+
+const styles = {
+  uploader: {
+    WebkitAppearance: "none",
+    appearance: "none"
+  },
+  snackbar: {
+    color: "#76FF03"
+  }
+};
 
 export default Form;
