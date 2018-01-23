@@ -30,7 +30,8 @@ class SectionTwo extends Component {
                 <span className="icon alt major fa-flask" />
                 <h3>Science</h3>
                 <p>
-                  The voice is a biological instrument, learn more about it.
+                  The voice is a biological musical instrument that we all need
+                  to master. learn more about it.
                 </p>
               </section>
               <section className="4u 6u$(medium) 12u$(xsmall)">
