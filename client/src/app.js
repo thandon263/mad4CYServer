@@ -4,7 +4,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { Header, SectionOne, SectionTwo, Footer } from "./components/index";
 import FormComponent from "./shared/Form";
 import firebase from "firebase";
-import config from "../../config/keys";
+import config from "../../config/dev";
 import PageLoader from "./shared/spinner";
 
 class App extends React.Component {

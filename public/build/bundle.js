@@ -14847,8 +14847,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_Form__ = __webpack_require__(111);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_keys__ = __webpack_require__(193);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__config_keys__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_dev__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_dev___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__config_dev__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_spinner__ = __webpack_require__(377);
 
 
@@ -14870,12 +14870,12 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
   componentWillMount() {
     __WEBPACK_IMPORTED_MODULE_5_firebase___default.a.initializeApp({
-      apiKey: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.apiKey,
-      authDomain: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.authDomain,
-      databaseURL: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.databaseURL,
-      projectId: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.projectId,
-      storageBucket: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.storageBucket,
-      messagingSenderId: __WEBPACK_IMPORTED_MODULE_6__config_keys___default.a.messagingSenderId
+      apiKey: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.apiKey,
+      authDomain: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.authDomain,
+      databaseURL: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.databaseURL,
+      projectId: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.projectId,
+      storageBucket: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.storageBucket,
+      messagingSenderId: __WEBPACK_IMPORTED_MODULE_6__config_dev___default.a.messagingSenderId
     });
   }
 
@@ -45424,35 +45424,8 @@ function stop(id) {
 
 
 /***/ }),
-/* 193 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {// Keys.js - figure out what set of credentials to return
-if (process.env.NODE_ENV === "production") {
-  // we are in development - return the dev set of keys!!
-  module.exports = __webpack_require__(195);
-} else {
-  // we are in production - return the prod set of keys
-
-  module.exports = __webpack_require__(194);
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
-/* 194 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {module.exports = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABSE_URL,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_ID
-};
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
-
-/***/ }),
+/* 193 */,
+/* 194 */,
 /* 195 */
 /***/ (function(module, exports) {
 
