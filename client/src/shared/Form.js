@@ -144,6 +144,7 @@ class Form extends Component {
         gender: this.gender.value,
         phone: parseInt(this.phone.value, 10)
       },
+      description: this.description.value,
       location: {
         city: this.city.value
       },
@@ -239,6 +240,29 @@ class Form extends Component {
                       className="form-control"
                       type="text"
                       ref={input => (this.lname = input)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="form-group">
+                <label className="col-md-4 control-label">
+                  Description "Write at least 30 words"
+                </label>
+                <div className="col-md-4 inputGroupContainer">
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="glyphicon glyphicon-user" />
+                    </span>
+                    <textarea
+                      style={styles.description}
+                      required={this.state.required}
+                      id="description"
+                      name="description"
+                      placeholder="Tell us about something you ..."
+                      className="form-control"
+                      type="text"
+                      ref={input => (this.description = input)}
                     />
                   </div>
                 </div>
@@ -496,6 +520,13 @@ const styles = {
   },
   snackbar: {
     color: "#76FF03"
+  },
+  description: {
+    resize: "none",
+    overflow: "auto",
+    width: "100%",
+    maxWidth: 680,
+    minHeight: 80
   }
 };
 
