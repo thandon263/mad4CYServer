@@ -41578,7 +41578,7 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "label",
                 { className: "col-md-4 control-label" },
-                "Description \"Write at least 30 words\""
+                "Description \"Write at least 30 words\" This will be in your profile"
               ),
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
@@ -41595,6 +41595,8 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     style: styles.description,
                     required: this.state.required,
                     id: "description",
+                    rows: 3,
+                    maxLength: 180,
                     name: "description",
                     placeholder: "Tell us about something you ...",
                     className: "form-control",

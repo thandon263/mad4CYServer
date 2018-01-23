@@ -247,7 +247,8 @@ class Form extends Component {
               <br />
               <div className="form-group">
                 <label className="col-md-4 control-label">
-                  Description "Write at least 30 words"
+                  Description "Write at least 30 words" This will be in your
+                  profile
                 </label>
                 <div className="col-md-4 inputGroupContainer">
                   <div className="input-group">
@@ -258,6 +259,8 @@ class Form extends Component {
                       style={styles.description}
                       required={this.state.required}
                       id="description"
+                      rows={3}
+                      maxLength={180}
                       name="description"
                       placeholder="Tell us about something you ..."
                       className="form-control"
