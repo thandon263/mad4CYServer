@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
-import Snackbar from "material-ui/Snackbar";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
 class Form extends Component {
   constructor() {
@@ -9,11 +10,27 @@ class Form extends Component {
       required: true,
       disabled: true,
       open: false,
+      title: "",
       error: {},
       message: "",
-      photoUrl: ""
+      photoUrl: "",
+
+      first_name: "",
+      last_name: "",
+      description: "",
+      email: "",
+      phone: "",
+      time_spent: "",
+      city: "",
+      vocal: "",
+      motivation: "",
+      structure: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
+    this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+    this.handleChangeLastName = this.handleChangeLastName.bind(this);
+    this.handleChangeDescription = this.handleChangeDescription.bind(this);
+    this.handleChangeCity = this.handleChangeCity.bind(this);
   }
   componentWillMount() {
     var database = firebase.database().ref("people");
@@ -60,75 +77,151 @@ class Form extends Component {
     }, 5000);
   }
 
-  validateEmail(value) {
-    // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(value);
-  }
-
   handleRequestClose() {
     this.setState({
       open: false
     });
   }
 
-  handleValidation() {
-    let errors = {};
-    let formIsValid = true;
-
-    // First Name
-    if (!this.fname.value) {
-      formIsValid = false;
-      errors.this.fname.value = "Cannot be empty";
-    }
-
-    if (typeof this.fname.value !== "undefined") {
-      if (!this.fname.value.match(/^[a-zA-Z]+$/)) {
-        formIsValid = false;
-        errors.this.fname.value = "only letters";
-      }
-    }
-
-    // email
-    if (!this.email.value) {
-      formIsValid = false;
-      errors.this.email.value = "Cannot be empty";
-    }
-
-    if (typeof this.email.value !== "undefined") {
-      let lastAtPos = this.email.value.lastIndexOf("@");
-      let lastDotPos = this.email.value.lastIndexOf(".");
-
-      if (
-        !(
-          lastAtPos < lastDotPos &&
-          lastAtPos > 0 &&
-          this.email.value.value.indexOf("@@")
-        )
-      ) {
-        formIsValid = false;
-        errors.this.email.value = "Email is not valid";
-      }
-    }
-
-    // Hours Spent
-    if (!this.time_spent.value) {
-      formIsValid = false;
-      errors.this.time_spent.value = "Cannot be empty";
-    }
-
-    if (typeof this.time_spent.value !== "undefined") {
-      if (!this.time_spent.value.match(/^[a-zA-Z0-9]+$/)) {
-        formIsValid = false;
-        errors.this.time_spent.value = "only letters";
-      }
-    }
-
+  handleChangeFirstName(event, value) {
     this.setState({
-      errors: errors
+      first_name: event.target.value
     });
+    console.log("first_name:", event.target.value);
+  }
 
-    return formIsValid;
+  handleChangeLastName(event, value) {
+    console.log("last_name:", event.target.value);
+    this.setState({
+      last_name: event.target.value
+    });
+  }
+
+  handleChangeDescription(event, value) {
+    this.setState({
+      description: event.target.value
+    });
+    console.log("description:", event.target.value);
+  }
+
+  handleChangeEmail(event, value) {
+    this.setState({
+      email: event.target.value
+    });
+  }
+
+  handleChangePhone(event, value) {
+    this.setState({
+      phone: event.target.value
+    });
+  }
+
+  handleChangeTimeSpent(event, value) {
+    this.setState({
+      time_spent: event.target.value
+    });
+  }
+
+  handleChangeCity(event, value) {
+    this.setState({
+      city: event.target.value
+    });
+  }
+
+  handleChangeVocal(event, value) {
+    this.setState({
+      vocal: event.target.value
+    });
+  }
+
+  handleChangeMotivation(event, value) {
+    this.setState({
+      motivation: event.target.value
+    });
+  }
+
+  handleChangeStructure(event, value) {
+    this.setState({
+      structure: event.target.value
+    });
+  }
+
+  validations(data) {
+    if (
+      (!this.state.first_name,
+      !this.state.last_name,
+      !this.state.description,
+      !this.state.photoUrl,
+      !this.state.email,
+      !this.state.city,
+      !this.state.vocal,
+      !this.state.structure)
+    ) {
+      this.setState({
+        title: "Oops",
+        message: "Fill in all the fields to complete the Registration.",
+        open: true
+      });
+    } else if (!this.state.first_name) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your First name (required) field.",
+        open: true
+      });
+    } else if (!this.state.last_name) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your Last name (required) field.",
+        open: true
+      });
+    } else if (!this.state.description) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your description (required) field.",
+        open: true
+      });
+    } else if (!this.state.photoUrl) {
+      this.setState({
+        title: "Oops",
+        message: "Please submit an image (required) field.",
+        open: true
+      });
+    } else if (!this.state.email) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your email (required) field.",
+        open: true
+      });
+    } else if (!this.state.city) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your city (required) field.",
+        open: true
+      });
+    } else if (!this.state.vocal) {
+      this.setState({
+        title: "Oops",
+        message: "Please enter your Musical Part (required) field.",
+        open: true
+      });
+    } else if (!this.state.structure) {
+      this.setState({
+        title: "Oops",
+        message: "Complete the 'Commitment to practice' (required) field.",
+        open: true
+      });
+    } else {
+      firebase
+        .database()
+        .ref("profile/")
+        .push(data);
+
+      this.setState({
+        title: "Sent",
+        message: "Thank you for completing the form.",
+        open: true
+      });
+    }
   }
 
   submitForm(event) {
@@ -137,60 +230,44 @@ class Form extends Component {
     // Get values saved
     var object = {
       personal_information: {
-        first_name: this.fname.value,
-        last_name: this.lname.value,
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
         photoUrl: this.state.photoUrl,
-        email: this.email.value,
-        gender: this.gender.value,
-        phone: parseInt(this.phone.value, 10)
+        email: this.state.email,
+        phone: this.state.phone
       },
-      description: this.description.value,
+      description: this.state.description,
       location: {
-        city: this.city.value
+        city: this.state.city
       },
       specialty: {
-        voice: this.voice.value
+        voice: this.state.vocal
       },
       about_choir: {
-        time_spent: this.time_spent.value,
-        motivation: this.motivation.value,
-        structure: this.structure.value
+        time_spent: this.state.time_spent,
+        motivation: this.state.motivation,
+        structure: this.state.structure
       }
     };
 
-    if (object) {
-      console.log("Values: ", object);
-      // Push the Object to firebase
-
-      // Initialize counter
-      var counter = 0;
-
-      // Create a database Reference
-      firebase
-        .database()
-        .ref(
-          "profile/" +
-            `s2January2018N_${
-              object.personal_information.first_name
-            }${(counter += 1)}`
-        )
-        .set(object);
-
-      // on Submit Success only
-      this.setState({
-        open: true,
-        message: "Form Successfully Submitted!"
-      });
-    } else {
-      this.setState({
-        open: true,
-        message: "Please Complete the Form before Submitting!"
-      });
-      alert("Form was not Subimitted, Complete all fields");
-    }
+    // Create a database Reference
+    this.validations(object);
+    // on Submit Success only
   }
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        onClick={this.handleRequestClose.bind(this)}
+        primary={true}
+      />,
+      <FlatButton
+        label="Ok"
+        onClick={this.handleRequestClose.bind(this)}
+        primary={true}
+      />
+    ];
     return (
       <div id="three" style={{ width: "70%", margin: "0 auto" }}>
         <div className="container">
@@ -202,7 +279,7 @@ class Form extends Component {
           >
             <fieldset>
               <h2>
-                <i>Registration Form</i>
+                <b>Registration Form</b>
               </h2>
               <div className="form-group">
                 <label className="col-md-4 control-label">First Name</label>
@@ -218,7 +295,8 @@ class Form extends Component {
                       placeholder="First Name"
                       className="form-control"
                       type="text"
-                      ref={input => (this.fname = input)}
+                      value={this.state.first_name}
+                      onChange={this.handleChangeFirstName}
                     />
                     <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
@@ -239,7 +317,8 @@ class Form extends Component {
                       placeholder="Last Name"
                       className="form-control"
                       type="text"
-                      ref={input => (this.lname = input)}
+                      value={this.state.last_name}
+                      onChange={this.handleChangeLastName}
                     />
                   </div>
                 </div>
@@ -247,8 +326,8 @@ class Form extends Component {
               <br />
               <div className="form-group">
                 <label className="col-md-4 control-label">
-                  Description "Write at least 30 words" This will be in your
-                  profile
+                  What makes you interested in the group and your contribution
+                  in making the group successful?
                 </label>
                 <div className="col-md-4 inputGroupContainer">
                   <div className="input-group">
@@ -259,13 +338,12 @@ class Form extends Component {
                       style={styles.description}
                       required={this.state.required}
                       id="description"
-                      rows={3}
-                      maxLength={180}
                       name="description"
-                      placeholder="Tell us about something you ..."
+                      placeholder="Tell us about your interest in the group ..."
                       className="form-control"
                       type="text"
-                      ref={input => (this.description = input)}
+                      value={this.state.description}
+                      onChange={this.handleChangeDescription}
                     />
                   </div>
                 </div>
@@ -298,7 +376,7 @@ class Form extends Component {
                         className="form-control"
                         accept=".jpg, jpeg, .png"
                         type="file"
-                        onChange={this.handleImageChange}
+                        onChange={this.handleImageChange.bind(this)}
                       />
                     </div>
                   </div>
@@ -319,7 +397,8 @@ class Form extends Component {
                       placeholder="E-Mail Address"
                       className="form-control"
                       type="text"
-                      ref={input => (this.email = input)}
+                      value={this.state.email}
+                      onChange={this.handleChangeEmail.bind(this)}
                     />
                     <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
@@ -340,7 +419,8 @@ class Form extends Component {
                       placeholder="(845)555-1212"
                       className="form-control"
                       type="text"
-                      ref={input => (this.phone = input)}
+                      value={this.state.phone}
+                      onChange={this.handleChangePhone.bind(this)}
                     />
                   </div>
                 </div>
@@ -363,7 +443,8 @@ class Form extends Component {
                       placeholder="Hours e.g '1 hour a week'"
                       className="form-control"
                       type="text"
-                      ref={input => (this.time_spent = input)}
+                      value={this.state.time_spent}
+                      onChange={this.handleChangeTimeSpent.bind(this)}
                     />
                     <span style={{ color: "red" }}>{this.state.errors}</span>
                   </div>
@@ -385,7 +466,8 @@ class Form extends Component {
                       className="form-control"
                       defaultValue={"Toronto"}
                       type="text"
-                      ref={input => (this.city = input)}
+                      value={this.state.city}
+                      onChange={this.handleChangeCity}
                     />
                   </div>
                 </div>
@@ -403,7 +485,8 @@ class Form extends Component {
                       required={this.state.required}
                       name="voice"
                       className="form-control selectpicker"
-                      ref={input => (this.voice = input)}
+                      value={this.state.vocal}
+                      onChange={this.handleChangeVocal.bind(this)}
                     >
                       <option value=" ">Please select your Voice</option>
                       <option>Soprano</option>
@@ -411,26 +494,6 @@ class Form extends Component {
                       <option>Tenor</option>
                       <option>Bass</option>
                     </select>
-                  </div>
-                </div>
-              </div>
-              <br />
-              <div className="form-group">
-                <label className="col-md-4 control-label">Gender</label>
-                <div className="col-md-4 inputGroupContainer">
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="glyphicon glyphicon-home" />
-                    </span>
-                    <input
-                      id="gender"
-                      required={this.state.required}
-                      name="gender"
-                      placeholder="Gender"
-                      className="form-control"
-                      type="text"
-                      ref={input => (this.gender = input)}
-                    />
                   </div>
                 </div>
               </div>
@@ -451,7 +514,8 @@ class Form extends Component {
                       placeholder="e.g 'harmony in music'"
                       className="form-control"
                       type="text"
-                      ref={input => (this.motivation = input)}
+                      value={this.state.motivation}
+                      onChange={this.handleChangeMotivation.bind(this)}
                     />
                   </div>
                 </div>
@@ -459,9 +523,8 @@ class Form extends Component {
               <br />
               <div className="form-group">
                 <label className="col-md-4 control-label">
-                  There is already a built in structure within MAD Youth choir.
-                  Songs have been pre-selected before you start.<br /> Are you
-                  willing to work with that kind of order?
+                  Music is about organization and unity, are you be willing to
+                  commit to practice for 3 hours a week at your convenience?
                 </label>
                 <div className="col-md-4 inputGroupContainer">
                   <div className="input-group">
@@ -475,7 +538,8 @@ class Form extends Component {
                       placeholder="e.g 'Yes' or 'No'"
                       className="form-control"
                       type="text"
-                      ref={input => (this.structure = input)}
+                      value={this.state.structure}
+                      onChange={this.handleChangeStructure.bind(this)}
                     />
                   </div>
                 </div>
@@ -494,23 +558,22 @@ class Form extends Component {
                 <a
                   onClick={this.submitForm.bind(this)}
                   className="button special"
-                  disabled={this.state.disabled}
                 >
-                  Register
+                  Send
                 </a>
               </div>
             </fieldset>
           </form>
         </div>
-        <Snackbar
+        <Dialog
           open={this.state.open}
-          style={styles.snackbar}
-          action="Close"
-          message={this.state.message}
-          autoHideDuration={4000}
-          onActionClick={this.handleRequestClose.bind(this)}
+          title={this.state.title}
+          actions={actions}
+          autoHideDuration={26000}
           onRequestClose={this.handleRequestClose.bind(this)}
-        />
+        >
+          {this.state.message}
+        </Dialog>
       </div>
     );
   }

@@ -15,7 +15,7 @@ class Header extends Component {
               </li>
               <li>
                 <a href="#three" className="button special">
-                  Sign Up
+                  Register
                 </a>
               </li>
             </ul>
