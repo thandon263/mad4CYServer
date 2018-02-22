@@ -41470,7 +41470,8 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       city: "",
       vocal: "",
       motivation: "",
-      structure: ""
+      structure: "",
+      termsAndConditions: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
@@ -41525,11 +41526,9 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     this.setState({
       first_name: event.target.value
     });
-    console.log("first_name:", event.target.value);
   }
 
   handleChangeLastName(event, value) {
-    console.log("last_name:", event.target.value);
     this.setState({
       last_name: event.target.value
     });
@@ -41539,7 +41538,6 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     this.setState({
       description: event.target.value
     });
-    console.log("description:", event.target.value);
   }
 
   handleChangeEmail(event, value) {
@@ -41581,6 +41579,12 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   handleChangeStructure(event, value) {
     this.setState({
       structure: event.target.value
+    });
+  }
+
+  handleChangeTNC(event, value) {
+    this.setState({
+      termsAndConditions: event.target.value
     });
   }
 
@@ -41639,6 +41643,12 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         message: "Complete the 'Commitment to practice' (required) field.",
         open: true
       });
+    } else if (!this.state.termsAndConditions) {
+      this.setState({
+        title: "Oops",
+        message: "Please fill with 'Yes' or 'No' below if you agree with Terms of Contract (required) field.",
+        open: true
+      });
     } else {
       __WEBPACK_IMPORTED_MODULE_1_firebase___default.a.database().ref("profile/").push(data);
 
@@ -41673,7 +41683,8 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         time_spent: this.state.time_spent,
         motivation: this.state.motivation,
         structure: this.state.structure
-      }
+      },
+      termsAndConditions: this.state.termsAndConditions
     };
 
     // Create a database Reference
@@ -42138,6 +42149,50 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                     type: "text",
                     value: this.state.structure,
                     onChange: this.handleChangeStructure.bind(this)
+                  })
+                )
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "div",
+              { className: "form-group" },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "label",
+                { className: "col-md-4 control-label" },
+                "Do you Agree with the terms of the contract click",
+                " ",
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "a",
+                  {
+                    target: "_blank",
+                    href: "https://drive.google.com/file/d/11kU61h-inbMqz7Ni-O_4nowRrCQQtw6z/view?usp=sharing"
+                  },
+                  "here"
+                ),
+                " ",
+                "to download the contract."
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "div",
+                { className: "col-md-4 inputGroupContainer" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "input-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "span",
+                    { className: "input-group-addon" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-pencil" })
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                    id: "structure",
+                    required: this.state.required,
+                    name: "structure",
+                    placeholder: "e.g 'Yes' or 'No'",
+                    className: "form-control",
+                    type: "text",
+                    value: this.state.termsAndConditions,
+                    onChange: this.handleChangeTNC.bind(this)
                   })
                 )
               )

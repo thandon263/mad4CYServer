@@ -24,7 +24,8 @@ class Form extends Component {
       city: "",
       vocal: "",
       motivation: "",
-      structure: ""
+      structure: "",
+      termsAndConditions: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
@@ -87,11 +88,9 @@ class Form extends Component {
     this.setState({
       first_name: event.target.value
     });
-    console.log("first_name:", event.target.value);
   }
 
   handleChangeLastName(event, value) {
-    console.log("last_name:", event.target.value);
     this.setState({
       last_name: event.target.value
     });
@@ -101,7 +100,6 @@ class Form extends Component {
     this.setState({
       description: event.target.value
     });
-    console.log("description:", event.target.value);
   }
 
   handleChangeEmail(event, value) {
@@ -146,6 +144,12 @@ class Form extends Component {
     });
   }
 
+  handleChangeTNC(event, value) {
+    this.setState({
+      termsAndConditions: event.target.value
+    });
+  }
+
   validations(data) {
     if (
       (!this.state.first_name,
@@ -155,7 +159,8 @@ class Form extends Component {
       !this.state.email,
       !this.state.city,
       !this.state.vocal,
-      !this.state.structure)
+      !this.state.structure,
+      !this.state.termsAndConditions)
     ) {
       this.setState({
         title: "Oops",
@@ -210,6 +215,13 @@ class Form extends Component {
         message: "Complete the 'Commitment to practice' (required) field.",
         open: true
       });
+    } else if (!this.state.termsAndConditions) {
+      this.setState({
+        title: "Oops",
+        message:
+          "Please fill with 'Yes' or 'No' below if you agree with Terms of Contract (required) field.",
+        open: true
+      });
     } else {
       firebase
         .database()
@@ -247,7 +259,8 @@ class Form extends Component {
         time_spent: this.state.time_spent,
         motivation: this.state.motivation,
         structure: this.state.structure
-      }
+      },
+      termsAndConditions: this.state.termsAndConditions
     };
 
     // Create a database Reference
@@ -540,6 +553,36 @@ class Form extends Component {
                       type="text"
                       value={this.state.structure}
                       onChange={this.handleChangeStructure.bind(this)}
+                    />
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div className="form-group">
+                <label className="col-md-4 control-label">
+                  Do you Agree with the terms of the contract click{" "}
+                  <a
+                    target="_blank"
+                    href="https://drive.google.com/file/d/11kU61h-inbMqz7Ni-O_4nowRrCQQtw6z/view?usp=sharing"
+                  >
+                    here
+                  </a>{" "}
+                  to download the contract.
+                </label>
+                <div className="col-md-4 inputGroupContainer">
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="glyphicon glyphicon-pencil" />
+                    </span>
+                    <input
+                      id="structure"
+                      required={this.state.required}
+                      name="structure"
+                      placeholder="e.g 'Yes' or 'No'"
+                      className="form-control"
+                      type="text"
+                      value={this.state.termsAndConditions}
+                      onChange={this.handleChangeTNC.bind(this)}
                     />
                   </div>
                 </div>
