@@ -41459,6 +41459,7 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       title: "",
       error: {},
       message: "",
+      success: "",
       photoUrl: "",
 
       first_name: "",
@@ -41471,7 +41472,21 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
       vocal: "",
       motivation: "",
       structure: "",
-      termsAndConditions: ""
+      termsAndConditions: "",
+      // errors
+      messagefName: "",
+      messagelName: "",
+      messageDescription: "",
+      messageDescription: "",
+      messagePhoto: "",
+      messagetSpent: "",
+      messageEmail: "",
+      messageCity: "",
+      messageStructure: "",
+      messageVocal: "",
+      messageTNC: "",
+      messagePhone: "",
+      messageMotivation: ""
     };
     this.handleImageChange = this.handleImageChange.bind(this);
     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
@@ -41511,7 +41526,8 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
     setTimeout(() => {
       this.setState({
-        photoUrl: downloadURL
+        photoUrl: downloadURL,
+        messagePhoto: ""
       });
     }, 5000);
   }
@@ -41524,129 +41540,181 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
   handleChangeFirstName(event, value) {
     this.setState({
-      first_name: event.target.value
+      first_name: event.target.value,
+      messagefName: "",
+      message: ""
     });
   }
 
   handleChangeLastName(event, value) {
     this.setState({
-      last_name: event.target.value
+      last_name: event.target.value,
+      messagelName: "",
+      message: ""
     });
   }
 
   handleChangeDescription(event, value) {
     this.setState({
-      description: event.target.value
+      description: event.target.value,
+      messageDescription: "",
+      message: ""
     });
   }
 
   handleChangeEmail(event, value) {
     this.setState({
-      email: event.target.value
+      email: event.target.value,
+      messageEmail: "",
+      message: ""
     });
   }
 
   handleChangePhone(event, value) {
     this.setState({
-      phone: event.target.value
+      phone: event.target.value,
+      messagePhone: "",
+      message: ""
     });
   }
 
   handleChangeTimeSpent(event, value) {
     this.setState({
-      time_spent: event.target.value
+      time_spent: event.target.value,
+      messagetSpent: "",
+      message: ""
     });
   }
 
   handleChangeCity(event, value) {
     this.setState({
-      city: event.target.value
+      city: event.target.value,
+      messageCity: "",
+      message: ""
     });
   }
 
   handleChangeVocal(event, value) {
     this.setState({
-      vocal: event.target.value
+      vocal: event.target.value,
+      messageVocal: "",
+      message: ""
     });
   }
 
   handleChangeMotivation(event, value) {
     this.setState({
-      motivation: event.target.value
+      motivation: event.target.value,
+      messageMotivation: "",
+      message: ""
     });
   }
 
   handleChangeStructure(event, value) {
     this.setState({
-      structure: event.target.value
+      structure: event.target.value,
+      messageStructure: "",
+      message: ""
     });
   }
 
   handleChangeTNC(event, value) {
     this.setState({
-      termsAndConditions: event.target.value
+      termsAndConditions: event.target.value,
+      messageTNC: "",
+      message: ""
     });
   }
 
-  validations(data) {
-    if (!this.state.first_name, !this.state.last_name, !this.state.description, !this.state.photoUrl, !this.state.email, !this.state.city, !this.state.vocal, !this.state.structure) {
+  validations(data, re) {
+    if (!this.state.first_name && !this.state.last_name && !this.state.description && !this.state.email && !this.state.phone && !this.state.time_spent && !this.state.city && !this.state.vocal && !this.state.motivation && !this.state.structure && !this.state.termsAndConditions) {
       this.setState({
-        title: "Oops",
-        message: "Fill in all the fields to complete the Registration.",
+        title: "Form Not Completed",
+        message: "Please enter the *required fields.",
         open: true
       });
     } else if (!this.state.first_name) {
       this.setState({
         title: "Oops",
-        message: "Please enter your First name (required) field.",
+        messagefName: "Please enter your First name.",
         open: true
       });
     } else if (!this.state.last_name) {
       this.setState({
         title: "Oops",
-        message: "Please enter your Last name (required) field.",
+        messagelName: "Please enter your Last name.",
         open: true
       });
     } else if (!this.state.description) {
       this.setState({
         title: "Oops",
-        message: "Please enter your description (required) field.",
+        messageDescription: "Fill in your description.",
+        open: true
+      });
+    } else if (this.state.description.length < 180) {
+      this.setState({
+        title: "Oops",
+        messageDescription: "Please write more content on your interests in the group and your contribution.",
         open: true
       });
     } else if (!this.state.photoUrl) {
       this.setState({
         title: "Oops",
-        message: "Please submit an image (required) field.",
+        messagePhoto: "Submit an image.",
+        open: true
+      });
+    } else if (!this.state.time_spent) {
+      this.setState({
+        title: "Oops",
+        messagetSpent: "Please enter whole number on number of hours spent a week listening to Acapella.",
         open: true
       });
     } else if (!this.state.email) {
       this.setState({
         title: "Oops",
-        message: "Please enter your email (required) field.",
+        messageEmail: "Please enter your email.",
+        open: true
+      });
+    } else if (!re.test(this.state.email)) {
+      this.setState({
+        title: "Oops",
+        messageEmail: "Enter a valid email address.",
+        open: true
+      });
+    } else if (!this.state.phone) {
+      this.setState({
+        title: "Oops",
+        messagePhone: "Fill in your phone.",
+        open: true
+      });
+    } else if (!this.state.motivation) {
+      this.setState({
+        title: "Oops",
+        messageMotivation: "Fill in your motivation in music.",
         open: true
       });
     } else if (!this.state.city) {
       this.setState({
         title: "Oops",
-        message: "Please enter your city (required) field.",
+        messageCity: "Fill in your city.",
         open: true
       });
     } else if (!this.state.vocal) {
       this.setState({
         title: "Oops",
-        message: "Please enter your Musical Part (required) field.",
+        messageVocal: "Choose your Musical Part.",
         open: true
       });
     } else if (!this.state.structure) {
       this.setState({
         title: "Oops",
-        message: "Complete the 'Commitment to practice' (required) field.",
+        messageStructure: "Complete the 'Commitment to practice'.",
         open: true
       });
     } else if (!this.state.termsAndConditions) {
       this.setState({
         title: "Oops",
-        message: "Please fill with 'Yes' or 'No' below if you agree with Terms of Contract (required) field.",
+        messageTNC: "Fill with 'Yes' or 'No' below if you agree with Terms of Contract.",
         open: true
       });
     } else {
@@ -41654,7 +41722,7 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
       this.setState({
         title: "Sent",
-        message: "Thank you for completing the form.",
+        success: "Thank you for completing the form.",
         open: true
       });
     }
@@ -41688,7 +41756,8 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     };
 
     // Create a database Reference
-    this.validations(object);
+    const regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.validations(object, regularExpression);
     // on Submit Success only
   }
 
@@ -41709,532 +41778,679 @@ class Form extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         "div",
         { className: "container" },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "form",
-          {
-            className: "well form-horizontal",
-            action: " ",
-            method: "post",
-            id: "contact_form"
-          },
+          "div",
+          { className: "row" },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "fieldset",
-            null,
+            "div",
+            { className: "col-md-12" },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "h2",
-              null,
+              "form",
+              {
+                className: "well form-horizontal",
+                action: " ",
+                method: "post",
+                id: "contact_form"
+              },
               __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "b",
+                "fieldset",
                 null,
-                "Registration Form"
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "First Name"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
+                  "h2",
+                  null,
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    required: this.state.required,
-                    id: "first_name",
-                    name: "first_name",
-                    placeholder: "First Name",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.first_name,
-                    onChange: this.handleChangeFirstName
-                  }),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { style: { color: "red" } },
-                    this.state.errors
+                    "b",
+                    null,
+                    "Registration Form"
                   )
-                )
-              )
-            ),
-            " ",
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Last Name"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    required: this.state.required,
-                    id: "last_name",
-                    name: "last_name",
-                    placeholder: "Last Name",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.last_name,
-                    onChange: this.handleChangeLastName
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "What makes you interested in the group and your contribution in making the group successful?"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", {
-                    style: styles.description,
-                    required: this.state.required,
-                    id: "description",
-                    name: "description",
-                    placeholder: "Tell us about your interest in the group ...",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.description,
-                    onChange: this.handleChangeDescription
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "fieldset",
-              null,
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "legend",
-                null,
-                "Picture"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "form-group" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "label",
-                  { className: "col-md-4 control-label" },
-                  "Upload Profile Picture"
-                ),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "progress",
-                  {
-                    style: styles.uploader,
-                    value: "0",
-                    max: "100",
-                    id: "uploader"
-                  },
-                  "0%"
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "div",
-                  { className: "col-md-4 inputGroupContainer" },
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "First Name"
+                  ),
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     "div",
-                    { className: "input-group" },
+                    { className: "col-md-4 inputGroupContainer" },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "span",
-                      { className: "input-group-addon" },
-                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                      required: this.state.required,
-                      id: "file_uploader",
-                      name: "file_uploader",
-                      placeholder: "Last Name",
-                      className: "form-control",
-                      accept: ".jpg, jpeg, .png",
-                      type: "file",
-                      onChange: this.handleImageChange.bind(this)
-                    })
-                  )
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "E-Mail"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-envelope" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    required: this.state.required,
-                    id: "email",
-                    name: "email",
-                    placeholder: "E-Mail Address",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.email,
-                    onChange: this.handleChangeEmail.bind(this)
-                  }),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { style: { color: "red" } },
-                    this.state.errors
-                  )
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Phone #"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-earphone" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "phone",
-                    required: this.state.required,
-                    name: "phone",
-                    placeholder: "(845)555-1212",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.phone,
-                    onChange: this.handleChangePhone.bind(this)
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Number of hours you spend listening to Acapella music a day/week?"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-home" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "time_spent",
-                    required: this.state.required,
-                    name: "time_spent",
-                    placeholder: "Hours e.g '1 hour a week'",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.time_spent,
-                    onChange: this.handleChangeTimeSpent.bind(this)
-                  }),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { style: { color: "red" } },
-                    this.state.errors
-                  )
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "City"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-home" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "city",
-                    required: this.state.required,
-                    name: "city",
-                    placeholder: "city",
-                    className: "form-control",
-                    defaultValue: "Toronto",
-                    type: "text",
-                    value: this.state.city,
-                    onChange: this.handleChangeCity
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Vocal Part"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 selectContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-list" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "select",
-                    {
-                      id: "voice",
-                      required: this.state.required,
-                      name: "voice",
-                      className: "form-control selectpicker",
-                      value: this.state.vocal,
-                      onChange: this.handleChangeVocal.bind(this)
-                    },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "option",
-                      { value: " " },
-                      "Please select your Voice"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "option",
-                      null,
-                      "Soprano"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "option",
-                      null,
-                      "Alto"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "option",
-                      null,
-                      "Tenor"
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                      "option",
-                      null,
-                      "Bass"
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        required: this.state.required,
+                        id: "first_name",
+                        name: "first_name",
+                        placeholder: "First Name",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.first_name,
+                        onChange: this.handleChangeFirstName
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messagefName
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
                     )
                   )
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "What is your motivation in music"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-globe" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "motivation",
-                    required: this.state.required,
-                    name: "motivation",
-                    placeholder: "e.g 'harmony in music'",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.motivation,
-                    onChange: this.handleChangeMotivation.bind(this)
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Music is about organization and unity, are you be willing to commit to practice for 3 hours a week at your convenience?"
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "div",
-                  { className: "input-group" },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-pencil" })
-                  ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "structure",
-                    required: this.state.required,
-                    name: "structure",
-                    placeholder: "e.g 'Yes' or 'No'",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.structure,
-                    onChange: this.handleChangeStructure.bind(this)
-                  })
-                )
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "label",
-                { className: "col-md-4 control-label" },
-                "Do you Agree with the terms of the contract click",
-                " ",
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  "a",
-                  {
-                    target: "_blank",
-                    href: "https://drive.google.com/file/d/11kU61h-inbMqz7Ni-O_4nowRrCQQtw6z/view?usp=sharing"
-                  },
-                  "here"
                 ),
                 " ",
-                "to download the contract."
-              ),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "div",
-                { className: "col-md-4 inputGroupContainer" },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                   "div",
-                  { className: "input-group" },
+                  { className: "form-group" },
                   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                    "span",
-                    { className: "input-group-addon" },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-pencil" })
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Last Name"
                   ),
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
-                    id: "structure",
-                    required: this.state.required,
-                    name: "structure",
-                    placeholder: "e.g 'Yes' or 'No'",
-                    className: "form-control",
-                    type: "text",
-                    value: this.state.termsAndConditions,
-                    onChange: this.handleChangeTNC.bind(this)
-                  })
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        required: this.state.required,
+                        id: "last_name",
+                        name: "last_name",
+                        placeholder: "Last Name",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.last_name,
+                        onChange: this.handleChangeLastName
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messagelName
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "What makes you interested in the group and your contribution in making the group successful?"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", {
+                        style: styles.description,
+                        required: this.state.required,
+                        id: "description",
+                        min: 180,
+                        name: "description",
+                        placeholder: "Tell us about your interest in the group ...",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.description,
+                        onChange: this.handleChangeDescription
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageDescription
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "fieldset",
+                  null,
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "legend",
+                    null,
+                    "Picture"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "form-group" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "label",
+                      { className: "col-md-4 control-label" },
+                      "Upload Profile Picture"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "progress",
+                      {
+                        style: styles.uploader,
+                        value: "0",
+                        max: "100",
+                        id: "uploader"
+                      },
+                      "0%"
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "col-md-4 inputGroupContainer" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "div",
+                        { className: "input-group" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "span",
+                          { className: "input-group-addon" },
+                          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-user" })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                          required: this.state.required,
+                          id: "file_uploader",
+                          name: "file_uploader",
+                          placeholder: "Last Name",
+                          className: "form-control",
+                          accept: ".jpg, jpeg, .png",
+                          type: "file",
+                          onChange: this.handleImageChange.bind(this)
+                        }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "span",
+                          { style: { color: "red" } },
+                          this.state.messagePhoto
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "span",
+                          { style: { color: "red" } },
+                          this.state.message
+                        )
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "E-Mail"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-envelope" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        required: this.state.required,
+                        id: "email",
+                        name: "email",
+                        placeholder: "E-Mail Address",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.email,
+                        onChange: this.handleChangeEmail.bind(this)
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageEmail
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Phone #"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-earphone" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        id: "phone",
+                        required: this.state.required,
+                        name: "phone",
+                        placeholder: "(845)555-1212",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.phone,
+                        onChange: this.handleChangePhone.bind(this)
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messagePhone
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Number of hours you spend listening to Acapella music a day/week?"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-home" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        id: "time_spent",
+                        required: this.state.required,
+                        name: "time_spent",
+                        placeholder: "Hours",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.time_spent,
+                        onChange: this.handleChangeTimeSpent.bind(this)
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messagetSpent
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "City"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-home" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        id: "city",
+                        required: this.state.required,
+                        name: "city",
+                        placeholder: "city",
+                        className: "form-control",
+                        defaultValue: "Toronto",
+                        type: "text",
+                        value: this.state.city,
+                        onChange: this.handleChangeCity
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageCity
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Vocal Part"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 selectContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-list" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "select",
+                        {
+                          id: "voice",
+                          required: this.state.required,
+                          name: "voice",
+                          className: "form-control selectpicker",
+                          value: this.state.vocal,
+                          onChange: this.handleChangeVocal.bind(this)
+                        },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          { value: " " },
+                          "Please select your Voice"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Soprano"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Alto"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Tenor"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Bass"
+                        )
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageVocal
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "What is your motivation in music"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-globe" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", {
+                        id: "motivation",
+                        required: this.state.required,
+                        name: "motivation",
+                        className: "form-control",
+                        type: "text",
+                        value: this.state.motivation,
+                        onChange: this.handleChangeMotivation.bind(this)
+                      }),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageMotivation
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Music is about organization and unity, are you be willing to commit to practice for 3 hours a week at your convenience?"
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-list" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "select",
+                        {
+                          id: "structure",
+                          required: this.state.required,
+                          name: "structure",
+                          className: "form-control selectpicker",
+                          value: this.state.structure,
+                          onChange: this.handleChangeStructure.bind(this)
+                        },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          { value: " " },
+                          "Please select your option"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "No"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Yes"
+                        )
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageStructure
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "label",
+                    { className: "col-md-4 control-label" },
+                    "Do you Agree with the terms of the contract click",
+                    " ",
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "a",
+                      {
+                        target: "_blank",
+                        href: "https://drive.google.com/file/d/11kU61h-inbMqz7Ni-O_4nowRrCQQtw6z/view?usp=sharing"
+                      },
+                      "here"
+                    ),
+                    " ",
+                    "to download and read the agreement."
+                  ),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "div",
+                    { className: "col-md-4 inputGroupContainer" },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                      "div",
+                      { className: "input-group" },
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { className: "input-group-addon" },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-list" })
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "select",
+                        {
+                          id: "terms",
+                          required: this.state.required,
+                          name: "terms",
+                          className: "form-control selectpicker",
+                          value: this.state.termsAndConditions,
+                          onChange: this.handleChangeTNC.bind(this)
+                        },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          { value: " " },
+                          "Please select your option"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "No"
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                          "option",
+                          null,
+                          "Yes"
+                        )
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.messageTNC
+                      ),
+                      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        "span",
+                        { style: { color: "red" } },
+                        this.state.message
+                      )
+                    )
+                  )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  {
+                    className: "alert alert-success",
+                    role: "alert",
+                    id: "success_message"
+                  },
+                  "Success ",
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-thumbs-up" }),
+                  " ",
+                  "Thanks for contacting us, we will get back to you shortly."
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  "div",
+                  { style: { cursor: "pointer" }, className: "form-group" },
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { className: "col-md-6 control-label" }),
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    "a",
+                    {
+                      onClick: this.submitForm.bind(this),
+                      className: "button special",
+                      style: { padding: "0 10%" }
+                    },
+                    "Send"
+                  )
                 )
               )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("br", null),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              {
-                className: "alert alert-success",
-                role: "alert",
-                id: "success_message"
-              },
-              "Success ",
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("i", { className: "glyphicon glyphicon-thumbs-up" }),
-              " Thanks for contacting us, we will get back to you shortly."
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              "div",
-              { style: { cursor: "pointer" }, className: "form-group" },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("label", { className: "col-md-4 control-label" }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                "a",
-                {
-                  onClick: this.submitForm.bind(this),
-                  className: "button special"
-                },
-                "Send"
-              )
             )
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_2_material_ui_Dialog___default.a,
+            {
+              open: this.state.open,
+              title: this.state.title,
+              actions: actions,
+              autoHideDuration: 26000,
+              onRequestClose: this.handleRequestClose.bind(this)
+            },
+            this.state.success || this.state.message || "Fill the form and click send, complete all required fields and submit."
           )
         )
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_2_material_ui_Dialog___default.a,
-        {
-          open: this.state.open,
-          title: this.state.title,
-          actions: actions,
-          autoHideDuration: 26000,
-          onRequestClose: this.handleRequestClose.bind(this)
-        },
-        this.state.message
       )
     );
   }
